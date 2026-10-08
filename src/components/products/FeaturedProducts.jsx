@@ -54,8 +54,8 @@ const FeaturedProducts = ({
         <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
           <path
             d="M0,120 C120,20 240,220 360,120 C480,20 600,220 720,120 C840,20 960,220 1080,120 C1200,20 1320,220 1440,120 L1440,0 L0,0Z"
-            fill="var(--color-secondary)"
-            opacity="0.4"
+            fill="var(--color-background-soft)"
+            opacity="0.5"
           />
           <path
             d="M0,100 C120,0 240,200 360,100 C480,0 600,200 720,100 C840,0 960,200 1080,100 C1200,0 1320,200 1440,100 L1440,0 L0,0Z"

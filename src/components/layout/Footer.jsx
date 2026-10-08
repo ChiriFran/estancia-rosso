@@ -7,7 +7,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__wave">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-          <path d="M0,40 C360,100 720,0 1080,60 C1260,80 1380,40 1440,40 L1440,100 L0,100 Z" fill="currentColor"/>
+          <path d="M0,52 C360,112 720,12 1080,72 C1260,92 1380,52 1440,52 L1440,0 L0,0 Z" fill="var(--color-primary-light)" opacity="0.5"/>
+          <path d="M0,40 C360,100 720,0 1080,60 C1260,80 1380,40 1440,40 L1440,0 L0,0 Z" fill="currentColor"/>
         </svg>
       </div>
       <div className="footer__content container">
