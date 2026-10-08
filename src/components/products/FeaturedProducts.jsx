@@ -5,21 +5,31 @@ import ProductCard from './ProductCard';
 import Spinner from '../ui/Spinner';
 import './FeaturedProducts.css';
 
-const FeaturedProducts = ({ limit = 4 }) => {
+const FeaturedProducts = ({
+  limit = 4,
+  title = 'Los más elegidos',
+  subtitle = 'Descubrí los productos favoritos de nuestros clientes en San Isidro.',
+  ctaLabel = 'Ver todos los productos',
+  ctaTo = '/productos',
+  category = null,
+}) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = subscribeToProducts((products) => {
-      setFeaturedProducts(products.filter((product) => product.destacado && product.activo).slice(0, limit));
+      const matches = category
+        ? products.filter((product) => product.categoria === category && product.activo)
+        : products.filter((product) => product.destacado && product.activo);
+      setFeaturedProducts(matches.slice(0, limit));
       setLoading(false);
     }, (error) => {
       console.error('Error loading featured products:', error);
       setLoading(false);
     });
     return unsubscribe;
-  }, [limit]);
+  }, [limit, category]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -54,8 +64,8 @@ const FeaturedProducts = ({ limit = 4 }) => {
         </svg>
       </div>
       <div className="container">
-        <h2 className="section-title">Los más elegidos</h2>
-        <p className="section-subtitle">Descubrí los productos favoritos de nuestros clientes en San Isidro.</p>
+        <h2 className="section-title">{title}</h2>
+        <p className="section-subtitle">{subtitle}</p>
         {loading ? (
           <Spinner />
         ) : (
@@ -66,8 +76,8 @@ const FeaturedProducts = ({ limit = 4 }) => {
           </div>
         )}
         <div className="featured__cta">
-          <Link to="/productos" className="btn btn-primary" title="Ver todos los productos">
-            Ver todos los productos
+          <Link to={ctaTo} className="btn btn-primary" title={ctaLabel}>
+            {ctaLabel}
           </Link>
         </div>
       </div>

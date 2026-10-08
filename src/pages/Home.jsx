@@ -96,6 +96,41 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Categories */}
+      <section className="categories section" ref={addSectionRef}>
+        <div className="container">
+          <h2 className="section-title">Explorá nuestras categorías</h2>
+          <p className="section-subtitle">Viandas, alimentos congelados, opciones veganas y vegetarianas y más.</p>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <MobileSlider gridClass="categories-row" perView={{ mobile: 3, desktop: 6 }}>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  to={`/productos?categoria=${cat.slug}`}
+                  className="category-circle"
+                >
+                  <div className="category-circle__image">
+                    <CategoryImage category={cat} title={`Categoría ${cat.nombre} - Estancia Rosso`} />
+                  </div>
+                  <span className="category-circle__name">{cat.nombre}</span>
+                </Link>
+              ))}
+            </MobileSlider>
+          )}
+        </div>
+      </section>
+
+      {/* Wraps */}
+      <FeaturedProducts
+        category="Wraps"
+        title="Envolvé tu día en sabor"
+        subtitle="Wraps frescos y prácticos, elaborados con ingredientes de verdad para comer rico donde vayas."
+        ctaLabel="Ver todos los wraps"
+        ctaTo="/productos?categoria=wraps"
+      />
+
       {/* Benefits */}
       <section className="benefits section" ref={addSectionRef}>
         <div className="container">
@@ -164,32 +199,6 @@ const Home = () => {
               <p className="benefit__text">Opciones 100% vegetales en gran parte de nuestra elaboración.</p>
             </div>
           </MobileSlider>
-        </div>
-      </section>
-
-      {/* Categories */}
-      <section className="categories section" ref={addSectionRef}>
-        <div className="container">
-          <h2 className="section-title">Explorá nuestras categorías</h2>
-          <p className="section-subtitle">Viandas, alimentos congelados, opciones veganas y vegetarianas y más.</p>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <MobileSlider gridClass="categories-row" perView={{ mobile: 3, desktop: 6 }}>
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  to={`/productos?categoria=${cat.slug}`}
-                  className="category-circle"
-                >
-                  <div className="category-circle__image">
-                    <CategoryImage category={cat} title={`Categoría ${cat.nombre} - Estancia Rosso`} />
-                  </div>
-                  <span className="category-circle__name">{cat.nombre}</span>
-                </Link>
-              ))}
-            </MobileSlider>
-          )}
         </div>
       </section>
 
