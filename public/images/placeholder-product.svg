@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" fill="#f7f4ea"/>
+  <circle cx="100" cy="88" r="56" fill="#8ac221" opacity="0.16"/>
+  <circle cx="100" cy="88" r="56" stroke="#8ac221" stroke-width="2" stroke-opacity="0.55"/>
+  <path d="M130 64 C130 100 104 126 70 130 C70 94 96 68 130 64 Z" fill="#2f6b45"/>
+  <path d="M76 124 C92 112 112 96 124 72" stroke="#f7f4ea" stroke-width="3" stroke-linecap="round"/>
+  <path d="M92 108 C96 111 98 113 100 115" stroke="#f7f4ea" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <path d="M92 108 C88 104 85 101 83 98" stroke="#f7f4ea" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <text x="100" y="170" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#2f6b45">Estancia Rosso</text>
+  <text x="100" y="187" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="10" letter-spacing="2" fill="#8b978f">SIN FOTO</text>
+</svg>

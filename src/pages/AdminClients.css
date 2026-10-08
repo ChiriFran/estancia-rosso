@@ -1,0 +1,131 @@
+.admin-clients {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-clients__loading {
+  color: var(--color-text-muted);
+  padding: 1rem 0;
+}
+
+.admin-clients__card {
+  margin-bottom: 0.75rem;
+  cursor: default;
+}
+
+.admin-clients__card:hover {
+  border-color: var(--color-border);
+}
+
+.admin-clients__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.admin-clients__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: #e0e7ff;
+  color: #3730a3;
+  white-space: nowrap;
+}
+
+.admin-clients__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+.admin-clients__localidad {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
+}
+
+.admin-clients__last-order {
+  flex-shrink: 0;
+}
+
+.admin-clients__orders-toggle {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.admin-clients__expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.admin-clients__expand-btn:hover {
+  text-decoration: underline;
+}
+
+.admin-clients__expand-icon {
+  display: inline-block;
+  font-size: 0.7rem;
+  transition: transform var(--transition-fast);
+}
+
+.admin-clients__expand-icon--open {
+  transform: rotate(180deg);
+}
+
+.admin-clients__orders {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-clients__orders-empty {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.admin-clients__order {
+  background: var(--color-background-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.admin-clients__order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.admin-clients__order-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.admin-clients__order-payment {
+  flex-shrink: 0;
+}

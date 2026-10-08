@@ -1,0 +1,212 @@
+quiero generar# Proyecto: Estancia Rosso — E-commerce (San Isidro, Buenos Aires)
+
+Inicializá un proyecto nuevo de e-commerce desde cero, replicando exactamente el stack y la arquitectura del proyecto "mixing-nuts" (D:\proyectos\mixing-nuts). Usalo como referencia para copiar estructura, patrones y configuración. El nuevo proyecto se llama **estancia-rosso** y va en `D:\proyectos\estancia-rosso`.
+
+## Datos del negocio
+- **Nombre:** Estancia Rosso
+- **Ubicación:** San Isidro, Buenos Aires, Argentina
+- **Moneda:** ARS (pesos argentinos)
+- **Idioma:** es-AR
+- **Rubro:** A definir por el usuario (mantené la arquitectura genérica de e-commerce)
+
+## Stack tecnológico (idéntico a mixing-nuts)
+- **Frontend:** React 19 + Vite 8 (JavaScript puro, sin TypeScript)
+- **Routing:** react-router-dom v7
+- **Estado global:** React Context (CartContext)
+- **Backend/DB:** Firebase (Firestore + Storage + Auth)
+- **Scripts admin:** firebase-admin (seed de productos)
+- **Lint:** Oxlint con plugin react
+- **Estilos:** CSS puro por componente (.css junto a cada .css), más globals.css y variables.css
+- **Deploy:** Vercel con SPA rewrites
+- **Extras:** xlsx (import de productos por Excel), sharp (optimización de imágenes), WhatsApp util
+
+## Comandos de inicialización
+```bash
+npm create vite@latest estancia-rosso -- --template react
+cd estancia-rosso
+npm install firebase react-router-dom xlsx
+npm install -D firebase-admin oxlint sharp @vitejs/plugin-react
+Estructura de carpetas a crear
+estancia-rosso/
+├── public/
+├── scripts/
+│   ├── firebaseAdmin.js
+│   └── optimize-images.mjs
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── layout/       (Layout.jsx, Header.jsx, Footer.jsx + .css)
+│   │   ├── ui/           (HeroSlider, MobileSlider, Spinner, Toast, WhatsAppButton, CategoryImage + .css)
+│   │   ├── cart/         (CartIcon, CartItem + .css)
+│   │   ├── products/     (ProductCard, FeaturedProducts + .css)
+│   │   ├── sections/     (ContactCta + .css)
+│   │   ├── checkout/
+│   │   ├── navigation/
+│   │   ├── AdminLogin.jsx + AdminLogin.css
+│   │   └── AdminRoute.jsx
+│   ├── config/
+│   │   ├── store.js
+│   │   └── seedProducts.js
+│   ├── context/
+│   │   └── CartContext.jsx
+│   ├── hooks/
+│   ├── pages/
+│   │   ├── Home.jsx/.css
+│   │   ├── Products.jsx/.css
+│   │   ├── ProductDetail.jsx/.css
+│   │   ├── Cart.jsx/.css
+│   │   ├── Checkout.jsx/.css
+│   │   ├── OrderSuccess.jsx/.css
+│   │   ├── About.jsx/.css
+│   │   ├── Admin.jsx/.css
+│   │   ├── AdminProducts.jsx/.css
+│   │   └── AdminClients.jsx/.css
+│   ├── services/
+│   │   ├── firebase.js
+│   │   ├── products.js
+│   │   ├── orders.js
+│   │   └── categories.js
+│   ├── styles/
+│   │   ├── globals.css
+│   │   └── variables.css
+│   ├── utils/
+│   │   ├── whatsapp.js
+│   │   ├── slugify.js
+│   │   ├── searchProducts.js
+│   │   ├── normalizeText.js
+│   │   └── formatPrice.js
+│   ├── App.jsx
+│   └── main.jsx
+├── .env.example
+├── .gitignore
+├── .oxlintrc.json
+├── firebase.json
+├── firestore.rules
+├── storage.rules
+├── vercel.json
+├── vite.config.js
+└── package.json
+Configuración de archivos clave
+package.json
+{
+  "name": "estancia-rosso",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "seed": "node --env-file=.env src/config/seedProducts.js",
+    "optimize:images": "node scripts/optimize-images.mjs"
+  }
+}
+vite.config.js
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [react()],
+})
+vercel.json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+.oxlintrc.json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+.env.example
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+VITE_ADMIN_UID=
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_ADMIN_UID=
+src/config/store.js
+export const storeConfig = {
+  name: 'Estancia Rosso',
+  tagline: 'San Isidro, Buenos Aires',
+  whatsapp: '549',
+  email: '',
+  instagram: '',
+  address: 'San Isidro, Buenos Aires',
+  currency: 'ARS',
+  locale: 'es-AR',
+};
+firebase.json
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
+firestore.rules
+Copiar exactamente el contenido de D:\proyectos\mixing-nuts\firestore.rules y reemplazar el UID de admin (WB00Y17z2mYEGm6iofyAVX1Gh863) por el nuevo VITE_ADMIN_UID. Las colecciones son: productos, categorias, ordenes. Validaciones: órdenes solo con transferencia/efectivo, stock solo puede bajar con ultimaReservaId, solo admin crea/edita/borra.
+storage.rules
+Copiar de D:\proyectos\mixing-nuts\storage.rules y reemplazar el UID admin. Ruta de imágenes: images/products/{fileName}, máx 5MB, solo image/*.
+Modelo de datos (Firestore)
+- productos: id, nombre, slug, descripcion, precio, stock, imagenes[], categoriaId, activo, destacado, ultimaReservaId
+- categorias: id, nombre, slug, imagen, activo
+- ordenes: id, cliente{nombre, apellido, telefono, email}, entrega{tipo: envio|retiro, direccion, localidad}, productos[], subtotal, total, metodoPago: transferencia|efectivo, estado: pendiente|confirmada|enviada|entregada|cancelada, createdAt (ISO string)
+Rutas de la app
+- / → Home (hero slider, productos destacados, categorías, CTA contacto)
+- /productos → listado con búsqueda y filtro por categoría
+- /producto/:slug → detalle de producto
+- /carrito → carrito de compras
+- /checkout → formulario de checkout (cliente + entrega + método de pago)
+- /pedido-confirmado → confirmación de orden
+- /nosotros → About
+- /admin → panel admin (protegido por AdminRoute + login Firebase Auth)
+- CRUD productos (con import Excel vía xlsx)
+- Gestión de clientes/órdenes
+- Cambio de estado de órdenes
+Firebase services (src/services/)
+- firebase.js → initializeApp con env vars VITE_FIREBASE_*, exporta auth, db, storage
+- products.js → CRUD productos en Firestore
+- orders.js → crear órdenes, consultar por admin
+- categories.js → CRUD categorías
+- scripts/firebaseAdmin.js → cliente firebase-admin para seed (usa FIREBASE_CLIENT_EMAIL y FIREBASE_PRIVATE_KEY)
+Pasos a ejecutar
+ 1. Crear el proyecto con npm create vite@latest (template react)
+ 2. Instalar dependencias
+ 3. Crear toda la estructura de carpetas
+ 4. Crear todos los archivos de configuración (vite, vercel, oxlint, firebase, .env.example, rules)
+ 5. Crear src/config/store.js con datos de Estancia Rosso
+ 6. Crear src/services/firebase.js con las env vars
+ 7. Crear src/context/CartContext.jsx (carrito con useReducer + localStorage)
+ 8. Crear componentes de layout (Header, Footer, Layout)
+ 9. Crear páginas base (Home, Products, ProductDetail, Cart, Checkout, OrderSuccess, About, Admin)
+10. Crear utils (whatsapp, slugify, formatPrice, normalizeText, searchProducts)
+11. Configurar App.jsx con todas las rutas
+12. Crear styles (globals.css + variables.css)
+13. Crear scripts (seedProducts.js, optimize-images.mjs, firebaseAdmin.js)
+14. Configurar .gitignore
+15. Inicializar git
+16. Verificar que npm run lint y npm run build pasen sin errores
+Notas importantes
+- NO usar TypeScript, todo en JavaScript (.jsx)
+- NO usar librerías de UI externas (sin Tailwind, MUI, etc.) — CSS puro
+- Cada componente tiene su .css propio junto al .jsx
+- Firebase config se lee de import.meta.env.VITE_*
+- El seed se ejecuta con npm run seed y requiere .env con credenciales firebase-admin
+- Las imágenes de productos se suben a Firebase Storage en images/products/
+- Mantener la validación estricta de Firestore rules (solo admin edita, stock solo baja con reserva)
+- El checkout valida stock antes de crear la orden y descuenta stock en la misma transacción
+
+---

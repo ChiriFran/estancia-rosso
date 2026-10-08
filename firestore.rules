@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.uid == 'WB00Y17z2mYEGm6iofyAVX1Gh863';
+    }
+
+    function isValidNewOrder(orderId) {
+      let data = request.resource.data;
+      return data.keys().hasOnly([
+          'id', 'cliente', 'entrega', 'productos', 'subtotal', 'total',
+          'metodoPago', 'estado', 'createdAt'
+        ])
+        && data.keys().hasAll([
+          'id', 'cliente', 'entrega', 'productos', 'subtotal', 'total',
+          'metodoPago', 'estado', 'createdAt'
+        ])
+        && data.id == orderId
+        && data.estado == 'pendiente'
+        && data.createdAt is string
+        && data.metodoPago in ['transferencia', 'efectivo']
+        && data.cliente is map
+        && data.cliente.nombre is string
+        && data.cliente.nombre.size() > 0
+        && data.cliente.apellido is string
+        && data.cliente.apellido.size() > 0
+        && data.cliente.telefono is string
+        && data.cliente.telefono.size() > 0
+        && data.cliente.email is string
+        && data.entrega is map
+        && data.entrega.tipo in ['envio', 'retiro']
+        && (data.entrega.tipo == 'retiro'
+          || (data.entrega.direccion is string
+            && data.entrega.direccion.size() > 0
+            && data.entrega.localidad is string
+            && data.entrega.localidad.size() > 0))
+        && data.productos is list
+        && data.productos.size() > 0
+        && data.subtotal is number
+        && data.total is number
+        && data.total == data.subtotal;
+    }
+
+    function isValidStockDecrease() {
+      return request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['stock', 'ultimaReservaId'])
+        && resource.data.stock is number
+        && request.resource.data.stock is number
+        && request.resource.data.stock >= 0
+        && request.resource.data.stock < resource.data.stock
+        && request.resource.data.ultimaReservaId is string
+        && request.resource.data.ultimaReservaId.size() > 0;
+    }
+
+    match /productos/{productId} {
+      allow read: if isAdmin() || resource.data.activo == true;
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || isValidStockDecrease();
+    }
+
+    match /categorias/{categoryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /ordenes/{orderId} {
+      allow read: if isAdmin();
+      allow create: if isValidNewOrder(orderId);
+      allow delete: if false;
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['estado'])
+        && request.resource.data.estado in ['pendiente', 'confirmada', 'enviada', 'entregada', 'cancelada'];
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

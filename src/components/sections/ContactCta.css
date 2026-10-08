@@ -1,0 +1,82 @@
+.contact-cta {
+  position: relative;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+  margin-top: -60px;
+  padding-top: 60px;
+}
+
+@media (min-width: 768px) {
+  .contact-cta {
+    margin-top: -90px;
+    padding-top: 90px;
+  }
+}
+
+.contact-cta__wave {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  color: var(--color-background-soft);
+}
+
+.contact-cta__wave svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+@media (min-width: 768px) {
+  .contact-cta__wave svg {
+    height: 90px;
+  }
+}
+
+.contact-cta__content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.contact-cta__content h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  color: var(--color-white);
+  margin-bottom: var(--space-md);
+}
+
+.contact-cta__content p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.contact-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.contact-cta .btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.contact-cta .btn-primary:hover {
+  background-color: var(--color-white);
+  color: var(--color-primary-ink);
+  transform: translateY(-1px);
+}
+
+.contact-cta .btn-secondary {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.contact-cta .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
