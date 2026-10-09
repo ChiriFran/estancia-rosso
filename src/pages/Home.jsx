@@ -58,7 +58,7 @@ const Home = () => {
           <div className="hero__content">
             <span className="hero__tag">San Isidro - Buenos Aires</span>
             <h1 className="hero__title">
-              Comida saludable, <span className="hero__title-highlight">hecha en Estancia Rosso</span>
+              Comida saludable, <span className="hero__title-highlight">hecha con mucho amor</span>
             </h1>
             <p className="hero__subtitle">
               Elaboramos alimentos saludables: viandas, opciones veganas y vegetarianas
@@ -70,12 +70,18 @@ const Home = () => {
             <div className="hero__image-wrapper">
               <div className="hero__blob"></div>
               <img
-                src="images/logo.png"
+                src="/images/hero-anim.gif"
                 alt="Estancia Rosso"
                 title="Estancia Rosso - San Isidro, Buenos Aires"
                 className="hero__image"
                 decoding="async"
-                onError={(e) => { if (e.target.src !== '/favicon.svg') e.target.src = '/favicon.svg'; }}
+                onError={(e) => {
+                  if (e.target.src !== '/images/logo.png') {
+                    e.target.src = '/images/logo.png';
+                  } else if (e.target.src !== '/favicon.svg') {
+                    e.target.src = '/favicon.svg';
+                  }
+                }}
               />
             </div>
           </div>

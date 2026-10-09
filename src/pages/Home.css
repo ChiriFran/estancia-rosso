@@ -6,6 +6,21 @@
   overflow: hidden;
 }
 
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .hero::after {
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    right: -60px;
+    opacity: 0.06;
+  }
+}
+
 @media (min-width: 480px) {
   .hero {
     padding: var(--space-2xl) 0 var(--space-4xl);
@@ -206,6 +221,8 @@
   width: 100%;
   height: auto;
   z-index: 1;
+  border-radius: 100%;
+  box-shadow: 0 20px 60px rgba(16, 24, 40, 0.12);
 }
 
 .hero__decoration {
@@ -236,7 +253,37 @@
 
 /* Categories */
 .categories {
-  background-color: var(--color-white);
+  position: relative;
+  padding: var(--space-3xl) 0;
+  overflow: hidden;
+}
+
+/* .categories::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 3rem;
+  width: 220px;
+  height: 220px;
+  background: url('/images/background/healthy-food.png') no-repeat center / contain;
+  pointer-events: none;
+  z-index: 0;
+}
+ */
+ 
+.categories > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .categories::before {
+    width: 240px;
+    height: 240px;
+    bottom: -60px;
+    right: -60px;
+    opacity: 0.05;
+  }
 }
 
 /* Categorías: una sola fila scrolleable (slider en mobile y desktop) */
@@ -369,6 +416,72 @@
 .editorial--snack {
   position: relative;
   overflow: hidden;
+}
+
+.editorial--snack::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 3rem;
+  width: 240px;
+  height: 240px;
+  background: url('/images/background/vegan.png') no-repeat center / contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.editorial--snack > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .editorial--snack::after {
+    width: 300px;
+    height: 300px;
+    right: -50px;
+    top: -50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .editorial--snack::after {
+    width: 240px;
+    height: 240px;
+    right: -70px;
+    top: -70px;
+    opacity: 0.05;
+  }
+}
+
+.editorial--snack--alt {
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.editorial--snack--alt > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .editorial--snack--alt::before {
+    width: 300px;
+    height: 300px;
+    left: -60px;
+    bottom: -70px;
+  }
+}
+
+@media (max-width: 767px) {
+  .editorial--snack--alt::before {
+    width: 240px;
+    height: 240px;
+    left: -70px;
+    bottom: -80px;
+    opacity: 0.05;
+  }
 }
 
 .editorial--snack .editorial__grid {
@@ -650,7 +763,42 @@
 
 /* Benefits */
 .benefits {
-  background-color: var(--color-white);
+  position: relative;
+  padding: var(--space-3xl) 0;
+  overflow: hidden;
+}
+
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 1rem;
+  transform: translateY(-50%);
+  width: 260px;
+  height: 280px;
+  background: url('/images/background/vegetarian.png') no-repeat center / contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.benefits > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .benefits::before {
+    width: 260px;
+    height: 260px;
+    left: -70px;
+    opacity: 0.06;
+  }
+}
+
+@media (max-width: 767px) {
+  .benefits::before {
+    display: none;
+  }
 }
 
 .benefits .section-title {
@@ -712,8 +860,24 @@
 
 /* Testimonials */
 .testimonials {
+  position: relative;
   background-color: var(--color-white);
   margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.testimonials > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .testimonials::before {
+    width: 200px;
+    height: 200px;
+    top: -80px;
+    opacity: 0.035;
+  }
 }
 
 .testimonials__grid {
